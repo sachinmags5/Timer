@@ -1,29 +1,26 @@
-name:build-and-lint
+name: build-and-lint
 
 on:
   push:
-    branches:[main,developer]
+    branches: [main, developer]
   pull_request:
-    branches:[main,developer]
+    branches: [main, developer]
 
 jobs:
   build-and-lint:
-    runs-on:ubuntu-latest
-  steps:
-    -name:Checkout repo
-    uses:actions/checkout@v3
+    runs-on: ubuntu-latest
 
-    -name:Setup Node
-    uses:actions/setup-node@v3
-    with:
-      node-version: 20
-    
-    -name: Install frontend dependencies
-    working-directory: .
-    run:npm ci
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    -name: Lint frontend
-    working-directory: .
-    run : npm run lint -- --max-warnigs=0
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
 
-    
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Lint frontend
+        run: npm run lint -- --max-warnings=0
